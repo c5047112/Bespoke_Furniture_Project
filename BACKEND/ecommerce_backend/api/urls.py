@@ -1,5 +1,4 @@
 from django.urls import path, include
-from api.models.user_model import User
 
 urlpatterns = [
     # path("auth/", include("api.urls.auth_urls")),

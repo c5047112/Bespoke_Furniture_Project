@@ -2,7 +2,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path("auth/", include("api.urls.auth_urls")),
-    # path("products/",include("api.urls.product_urls")),
+    path("products/",include("api.urls.product_urls")),
     # path("cart/", include("api.urls.cart_urls")),
     # path("address/",include("api.urls.addres_urls")),
     # path("order/", include("api.urls.order_urls")),
