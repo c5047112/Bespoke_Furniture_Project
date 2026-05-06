@@ -1,7 +1,8 @@
 from django.urls import path, include
+from api.models.user_model import User
 
 urlpatterns = [
-    path("auth/", include("api.urls.auth_urls")),
+    # path("auth/", include("api.urls.auth_urls")),
     # path("products/", include("api.urls.product_urls")),
     # path("cart/", include("api.urls.cart_urls")),
     # path("address/", include("api.urls.address_urls")),
