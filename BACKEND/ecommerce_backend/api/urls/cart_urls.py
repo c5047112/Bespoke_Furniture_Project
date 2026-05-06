@@ -8,7 +8,7 @@ from api.views.cart_view import (
 
 urlpatterns = [
     path("add/", add_to_cart_view),
-    path("<str:user_id>/", get_cart_view),  
+    path("<str:user_id>/", get_cart_view),
     path("update/<int:item_id>/", update_cart_item_view),
     path("delete/<int:item_id>/", delete_cart_item_view),
 ]

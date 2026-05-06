@@ -1,5 +1,5 @@
 from django.urls import path
-from api.views.order_views import *
+from api.views.order_view import *
 
 urlpatterns = [
     path("checkout/<str:user_id>/<int:address_id>/", checkout_view),

@@ -64,7 +64,7 @@ function OrderCard({ order, onStart, onComplete }) {
         </Typography>
 
         <Typography fontSize="1.3rem" fontWeight="bold" color="primary.main">
-          ₹ {order.grand_total}
+        £ {order.grand_total}
         </Typography>
 
         {/* ACTIONS */}

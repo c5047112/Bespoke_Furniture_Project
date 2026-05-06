@@ -8,7 +8,7 @@ from api.repository.product_repository import (
 )
 
 # ➕ Add Product
-from api.repository.category_repository import get_or_create_category
+from api.repository.catrgory_repository import get_or_create_category
 from api.repository.product_repository import (
     create_product,
     create_product_image

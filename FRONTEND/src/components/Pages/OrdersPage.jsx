@@ -300,7 +300,7 @@ function OrdersPage() {
               WebkitTextFillColor: "transparent",
             }}
           >
-            Grand Total: ₹{selectedOrder?.grand_total}
+            Grand Total: £{selectedOrder?.grand_total}
           </Typography>
         </DialogContent>
       </Dialog>

@@ -1,4 +1,4 @@
-from api.models import OTP
+from api.models.otp import OTP
 
 # -------------------------
 # Create OTP

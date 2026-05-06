@@ -1,4 +1,3 @@
-from api.models import User
 
 # 📄 Get All Users
 def get_all_users():

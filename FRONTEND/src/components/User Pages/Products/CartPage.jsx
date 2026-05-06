@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import DeleteIcon from "@mui/icons-material/Delete";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -232,7 +232,7 @@ function CartPage() {
                     <Button
                       size="small"
                       sx={{ mt: 1, color: "#ff5252" }}
-                      startIcon={<DeleteOutlineIcon />}
+                      startIcon={<DeleteIcon />}
                       onClick={() => removeItem(item.id)}
                     >
                       Remove
