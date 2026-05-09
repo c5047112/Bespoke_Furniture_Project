@@ -111,7 +111,7 @@ function AdminDashboard() {
       </Grid>
 
       {/* ORDER FLOW */}
-      <Box mt={6}>
+      <Box mt={10}>
         <Typography variant="h5" fontWeight="bold" mb={2} color="white">
           📦 Order Flow
         </Typography>
@@ -136,7 +136,7 @@ function AdminDashboard() {
       </Box>
 
       {/* RECENT ORDERS */}
-      <Box mt={6}>
+      <Box mt={10}>
         <Typography variant="h5" fontWeight="bold" mb={2} color="white">
           🕒 Recent Orders
         </Typography>
@@ -198,7 +198,7 @@ function AdminDashboard() {
       </Box>
 
       {/* QUICK ACTIONS */}
-      <Box mt={6}>
+      <Box mt={10}>
         <Typography variant="h5" fontWeight="bold" mb={2} color="white">
           ⚡ Quick Actions
         </Typography>

@@ -11,14 +11,14 @@ import {
   IconButton,
   Drawer,
   List,
-  ListItem,
+  ListItemButton,
   ListItemText,
+  Divider,
   useMediaQuery,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 
-// ICONS
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
@@ -32,35 +32,27 @@ function Navbar() {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isTablet = useMediaQuery(theme.breakpoints.down("md"));
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const handleMenuOpen = (event) => setAnchorEl(event.currentTarget);
+  const handleClose = () => setAnchorEl(null);
 
   const handleLogout = () => {
     sessionStorage.removeItem("user");
     navigate("/login");
   };
 
-  const toggleDrawer = () => {
-    setMobileOpen(!mobileOpen);
-  };
+  const toggleDrawer = () => setMobileOpen(!mobileOpen);
 
   const menuItems = [
     { label: "Home", path: "/" },
+
     ...(user && user.role !== "ADMIN"
-      ? [
-          { label: "Products", path: "/products" },
-          { label: "Wishlist", path: "/wishlist" },
-          { label: "Cart", path: "/cart" },
-          { label: "Orders", path: `/orders/${user.id}` },
-        ]
+      ? [{ label: "Products", path: "/products" }]
       : []),
+
     ...(user && user.role === "ADMIN"
       ? [
           { label: "Products", path: "/admin-products" },
@@ -73,88 +65,65 @@ function Navbar() {
   return (
     <>
       <AppBar position="sticky" sx={{ background: "#1e1e2f" }}>
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-          {/* LOGO */}
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            px: { xs: 1, sm: 2, md: 4 },
+            minHeight: { xs: 60, sm: 70 },
+          }}
+        >
+          {/* Logo */}
           <Typography
             variant="h6"
+            onClick={() => navigate("/")}
             sx={{
               cursor: "pointer",
               fontWeight: "bold",
-              fontSize: { xs: "1rem", md: "1.25rem" },
+              fontSize: {
+                xs: "0.95rem",
+                sm: "1.1rem",
+                md: "1.25rem",
+              },
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              flexGrow: 1,
             }}
-            onClick={() => navigate("/")}
           >
             🪑 Bespoke Furniture
           </Typography>
 
-          {/* MOBILE MENU */}
-          {isMobile ? (
+          {/* Mobile / Tablet */}
+          {isTablet ? (
             <IconButton color="inherit" onClick={toggleDrawer}>
               <MenuIcon />
             </IconButton>
           ) : (
-            <Box display="flex" alignItems="center" gap={2}>
-              <Button color="inherit" onClick={() => navigate("/")}>
-                Home
-              </Button>
-
-              {user && user.role !== "ADMIN" && (
-                <>
-                  <Button color="inherit" onClick={() => navigate("/products")}>
-                    Products
-                  </Button>
-
-                  <IconButton
-                    onClick={() => navigate("/wishlist")}
-                    sx={iconStyle}
-                  >
-                    <FavoriteBorderIcon />
-                  </IconButton>
-
-                  <IconButton onClick={() => navigate("/cart")} sx={iconStyle}>
-                    <ShoppingCartIcon />
-                  </IconButton>
-
-                  <IconButton
-                    onClick={() => navigate(`/orders/${user.id}`)}
-                    sx={iconStyle}
-                  >
-                    <ReceiptLongIcon />
-                  </IconButton>
-                </>
-              )}
-
-              {user && user.role === "ADMIN" && (
-                <>
-                  <Button
-                    onClick={() => navigate("/admin-products")}
-                    color="inherit"
-                  >
-                    Products
-                  </Button>
-                  <Button
-                    onClick={() => navigate("/admin-staff")}
-                    color="inherit"
-                  >
-                    Staff
-                  </Button>
-                  <Button
-                    onClick={() => navigate("/admin/vans")}
-                    color="inherit"
-                  >
-                    Vans
-                  </Button>
-                </>
-              )}
+            <Box display="flex" alignItems="center" gap={{ md: 1, lg: 2 }}>
+              {menuItems.map((item) => (
+                <Button
+                  key={item.label}
+                  color="inherit"
+                  onClick={() => navigate(item.path)}
+                  sx={{ fontSize: "0.9rem" }}
+                >
+                  {item.label}
+                </Button>
+              ))}
 
               {!user ? (
                 <>
-                  <Button onClick={() => navigate("/login")} color="inherit">
+                  <Button color="inherit" onClick={() => navigate("/login")}>
                     Login
                   </Button>
+
                   <Button
                     variant="contained"
-                    sx={{ background: "#ff9800" }}
+                    sx={{
+                      background: "#ff9800",
+                      "&:hover": { background: "#e68900" },
+                    }}
                     onClick={() => navigate("/signup")}
                   >
                     Signup
@@ -162,8 +131,38 @@ function Navbar() {
                 </>
               ) : (
                 <>
+                  {user.role !== "ADMIN" && (
+                    <>
+                      <IconButton
+                        sx={iconStyle}
+                        onClick={() => navigate("/wishlist")}
+                      >
+                        <FavoriteBorderIcon />
+                      </IconButton>
+
+                      <IconButton
+                        sx={iconStyle}
+                        onClick={() => navigate("/cart")}
+                      >
+                        <ShoppingCartIcon />
+                      </IconButton>
+
+                      <IconButton
+                        sx={iconStyle}
+                        onClick={() => navigate(`/orders/${user.id}`)}
+                      >
+                        <ReceiptLongIcon />
+                      </IconButton>
+                    </>
+                  )}
+
                   <Avatar
-                    sx={{ cursor: "pointer", bgcolor: "#ff9800" }}
+                    sx={{
+                      cursor: "pointer",
+                      bgcolor: "#ff9800",
+                      width: 38,
+                      height: 38,
+                    }}
                     onClick={handleMenuOpen}
                   >
                     {user.name[0]}
@@ -175,7 +174,7 @@ function Navbar() {
                     onClose={handleClose}
                   >
                     <MenuItem disabled>
-                      👤 {user.name} ({user.role})
+                      {user.name} ({user.role})
                     </MenuItem>
 
                     {user.role === "ADMIN" && (
@@ -193,13 +192,17 @@ function Navbar() {
         </Toolbar>
       </AppBar>
 
-      {/* MOBILE DRAWER */}
+      {/* Drawer */}
       <Drawer anchor="right" open={mobileOpen} onClose={toggleDrawer}>
-        <Box sx={{ width: 250 }}>
+        <Box
+          sx={{
+            width: { xs: 220, sm: 260 },
+            pt: 2,
+          }}
+        >
           <List>
             {menuItems.map((item) => (
-              <ListItem
-                button
+              <ListItemButton
                 key={item.label}
                 onClick={() => {
                   navigate(item.path);
@@ -207,22 +210,25 @@ function Navbar() {
                 }}
               >
                 <ListItemText primary={item.label} />
-              </ListItem>
+              </ListItemButton>
             ))}
+
+            <Divider />
 
             {!user ? (
               <>
-                <ListItem button onClick={() => navigate("/login")}>
+                <ListItemButton onClick={() => navigate("/login")}>
                   <ListItemText primary="Login" />
-                </ListItem>
-                <ListItem button onClick={() => navigate("/signup")}>
+                </ListItemButton>
+
+                <ListItemButton onClick={() => navigate("/signup")}>
                   <ListItemText primary="Signup" />
-                </ListItem>
+                </ListItemButton>
               </>
             ) : (
-              <ListItem button onClick={handleLogout}>
+              <ListItemButton onClick={handleLogout}>
                 <ListItemText primary="Logout" />
-              </ListItem>
+              </ListItemButton>
             )}
           </List>
         </Box>
@@ -233,7 +239,6 @@ function Navbar() {
 
 const iconStyle = {
   color: "white",
-  borderRadius: "50%",
   transition: "0.3s",
   "&:hover": {
     backgroundColor: "#2a2a40",
