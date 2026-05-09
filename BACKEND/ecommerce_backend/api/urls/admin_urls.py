@@ -1,5 +1,5 @@
 from django.urls import path
-from api.views.admin_view import admin_login_view
+from api.views.admin_views import admin_login_view
 from api.views.dashboard_view import dashboard_view
 from api.views.user_view import admin_users_view
 from api.views.dashboard_view import user_orders_view
