@@ -64,25 +64,30 @@ function Signup() {
   return (
     <Box
       sx={{
-        minHeight: "60vh",
+        minHeight: "100vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         background:
           "radial-gradient(circle at top, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb)",
-        overflow: "hidden", // ✅ NO SCROLL
+        overflow: "hidden",
         position: "relative",
-        p: 2,
+        px: { xs: 2, sm: 3, md: 4 },
+        py: { xs: 3, sm: 4, md: 2 },
       }}
     >
       {/* 🌈 Floating Blobs */}
       <Box
         sx={{
           position: "absolute",
-          width: 200,
-          height: 200,
+          width: { xs: 100, sm: 150, md: 200 },
+          height: { xs: 100, sm: 150, md: 200 },
+          filter: {
+            xs: "blur(60px)",
+            sm: "blur(80px)",
+            md: "blur(100px)",
+          },
           background: "#ff6ec4",
-          filter: "blur(100px)",
           top: "10%",
           left: "10%",
           opacity: 0.5,
@@ -104,14 +109,27 @@ function Signup() {
       <motion.div
         initial={{ scale: 0.85, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        style={{ zIndex: 1 }}
+        style={{
+          zIndex: 1,
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+        }}
       >
         <Card
           sx={{
             width: "100%",
-            maxWidth: 520,
+            maxWidth: {
+              xs: "100%",
+              sm: 520,
+              md: 520,
+            },
             borderRadius: 4,
-            p: 2,
+            p: {
+              xs: 1,
+              sm: 2,
+              md: 2,
+            },
             background: "rgba(255,255,255,0.25)",
             backdropFilter: "blur(25px)",
             boxShadow: "0 20px 50px rgba(0,0,0,0.25)",
@@ -119,23 +137,46 @@ function Signup() {
             overflow: "hidden", // ✅ FIX SCROLL
           }}
         >
-          <CardContent>
+          <CardContent
+            sx={{
+              p: {
+                xs: 2,
+                sm: 3,
+                md: 3,
+              },
+            }}
+          >
             {/* TITLE */}
             <Typography
-              variant="h4"
-              textAlign="center"
-              fontWeight="bold"
               sx={{
+                fontSize: {
+                  xs: "1.7rem",
+                  sm: "2.1rem",
+                  md: "2.4rem",
+                },
                 background: "linear-gradient(90deg,#ff512f,#dd2476,#24c6dc)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}
+              textAlign="center"
+              fontWeight="bold"
             >
               🪑 Create Account
             </Typography>
 
             {/* STEPPER */}
-            <Stepper activeStep={emailVerified ? 1 : 0} sx={{ mt: 2 }}>
+            <Stepper
+              activeStep={emailVerified ? 1 : 0}
+              sx={{
+                mt: 2,
+                "& .MuiStepLabel-label": {
+                  fontSize: {
+                    xs: "0.75rem",
+                    sm: "0.9rem",
+                  },
+                },
+              }}
+            >
               <Step>
                 <StepLabel>Email</StepLabel>
               </Step>
@@ -160,7 +201,7 @@ function Signup() {
                 </Grid>
 
                 {/* EMAIL */}
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
                     label="Email"
@@ -171,7 +212,7 @@ function Signup() {
                   />
                 </Grid>
 
-                <Grid item xs={3}>
+                <Grid item xs={6} sm={3}>
                   <Button
                     fullWidth
                     onClick={sendEmailOTP}
@@ -182,11 +223,11 @@ function Signup() {
                       fontWeight: "bold",
                     }}
                   >
-                    OTP
+                    Send OTP
                   </Button>
                 </Grid>
 
-                <Grid item xs={3}>
+                <Grid item xs={6} sm={3}>
                   <Chip
                     label={emailVerified ? "Verified ✔" : "Pending"}
                     sx={{
@@ -201,7 +242,7 @@ function Signup() {
                 </Grid>
 
                 {/* OTP */}
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
                     label="Enter OTP"
@@ -211,7 +252,7 @@ function Signup() {
                   />
                 </Grid>
 
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                   <Button
                     fullWidth
                     onClick={verifyEmailOTP}
@@ -226,7 +267,7 @@ function Signup() {
                 </Grid>
 
                 {/* PHONE */}
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
                     label="Phone"
@@ -238,7 +279,7 @@ function Signup() {
                 </Grid>
 
                 {/* PASSWORD */}
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
                     type={show ? "text" : "password"}
@@ -268,10 +309,17 @@ function Signup() {
                   disabled={!emailVerified}
                   sx={{
                     mt: 3,
-                    py: 1.4,
+                    py: {
+                      xs: 1.2,
+                      sm: 1.4,
+                    },
                     borderRadius: 3,
                     fontWeight: "bold",
-                    fontSize: "15px",
+                    fontSize: {
+                      xs: "13px",
+                      sm: "14px",
+                      md: "15px",
+                    },
                     background:
                       "linear-gradient(90deg,#ff6a00,#ee0979,#00c6ff)",
                     color: "white",

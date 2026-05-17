@@ -48,8 +48,10 @@ function Login() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        overflow: "hidden",
+        px: { xs: 2, sm: 3, md: 0 },
+        py: { xs: 3, sm: 4, md: 0 },
         position: "relative",
+        overflow: "hidden",
         background:
           "radial-gradient(circle at top, #667eea, #764ba2, #6dd5ed, #ff9a9e)",
       }}
@@ -58,10 +60,14 @@ function Login() {
       <Box
         sx={{
           position: "absolute",
-          width: 250,
-          height: 250,
+          width: { xs: 120, sm: 180, md: 250 },
+          height: { xs: 120, sm: 180, md: 250 },
           background: "#ff6ec4",
-          filter: "blur(120px)",
+          filter: {
+            xs: "blur(70px)",
+            sm: "blur(90px)",
+            md: "blur(120px)",
+          },
           top: "10%",
           left: "10%",
           opacity: 0.5,
@@ -70,10 +76,14 @@ function Login() {
       <Box
         sx={{
           position: "absolute",
-          width: 250,
-          height: 250,
+          width: { xs: 120, sm: 180, md: 250 },
+          height: { xs: 120, sm: 180, md: 250 },
           background: "#00c6ff",
-          filter: "blur(120px)",
+          filter: {
+            xs: "blur(70px)",
+            sm: "blur(90px)",
+            md: "blur(120px)",
+          },
           bottom: "10%",
           right: "10%",
           opacity: 0.5,
@@ -84,29 +94,56 @@ function Login() {
       <motion.div
         initial={{ opacity: 0, scale: 0.85 }}
         animate={{ opacity: 1, scale: 1 }}
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
         <Card
           sx={{
-            width: 380,
+            width: {
+              xs: "100%",
+              sm: 420,
+              md: 380,
+            },
+            maxWidth: "100%",
             borderRadius: 4,
-            p: 2,
+            p: {
+              xs: 1,
+              sm: 2,
+              md: 2,
+            },
             background: "rgba(255,255,255,0.25)",
             backdropFilter: "blur(25px)",
             boxShadow: "0 20px 60px rgba(0,0,0,0.3)",
             border: "1px solid rgba(255,255,255,0.3)",
           }}
         >
-          <CardContent>
+          <CardContent
+            sx={{
+              p: {
+                xs: 2,
+                sm: 3,
+                md: 3,
+              },
+            }}
+          >
             {/* TITLE */}
             <Typography
-              variant="h4"
-              textAlign="center"
-              fontWeight="bold"
               sx={{
+                fontSize: {
+                  xs: "1.8rem",
+                  sm: "2.2rem",
+                  md: "2.4rem",
+                },
                 background: "linear-gradient(90deg,#ff512f,#dd2476,#24c6dc)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}
+              textAlign="center"
+              fontWeight="bold"
             >
               🪑 Login
             </Typography>
@@ -123,6 +160,11 @@ function Login() {
                 sx={{
                   background: "white",
                   borderRadius: 2,
+                }}
+                inputProps={{
+                  style: {
+                    fontSize: window.innerWidth < 600 ? "14px" : "16px",
+                  },
                 }}
               />
 
@@ -147,6 +189,11 @@ function Login() {
                     </InputAdornment>
                   ),
                 }}
+                inputProps={{
+                  style: {
+                    fontSize: window.innerWidth < 600 ? "14px" : "16px",
+                  },
+                }}
               />
 
               {/* BUTTON */}
@@ -156,10 +203,14 @@ function Login() {
                   type="submit"
                   sx={{
                     mt: 3,
-                    py: 1.4,
+                    py: { xs: 1.2, sm: 1.4 },
+                    fontSize: {
+                      xs: "14px",
+                      sm: "15px",
+                      md: "16px",
+                    },
                     borderRadius: 3,
                     fontWeight: "bold",
-                    fontSize: "15px",
                     color: "white",
                     background:
                       "linear-gradient(90deg,#ff6a00,#ee0979,#00c6ff)",

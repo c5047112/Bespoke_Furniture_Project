@@ -192,99 +192,127 @@ function AddressPage() {
       </Button>
 
       {/* DIALOG */}
-      <Dialog
-        open={open}
-        onClose={() => setOpen(false)}
+      {/* DIALOG */}
+<Dialog
+  open={open}
+  onClose={() => setOpen(false)}
+  maxWidth="xs" // SMALLER SIZE
+  fullWidth
+  PaperProps={{
+    sx: {
+      borderRadius: "24px",
+      overflow: "hidden",
+      background: "#111827",
+      color: "#fff",
+      boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
+    },
+  }}
+>
+  {/* HEADER */}
+  <Box
+    sx={{
+      height: 100,
+      background: "linear-gradient(135deg,#7F5AF0,#00C2FF)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    }}
+  >
+    <Typography variant="h5" fontWeight="bold">
+      📍 Add Address
+    </Typography>
+  </Box>
+
+  {/* CONTENT */}
+  <DialogContent sx={{ p: 3 }}>
+    {[
+      "name",
+      "phone",
+      "address_line",
+      "city",
+      "state",
+      "pincode",
+    ].map((field) => (
+      <TextField
+        key={field}
+        label={field.replace("_", " ").toUpperCase()}
         fullWidth
-        PaperProps={{
-          sx: {
-            borderRadius: 4,
+        variant="outlined"
+        size="small"
+        sx={{
+          mt: 2,
 
-            /* ✨ GLASS STYLE */
-            backdropFilter: "blur(16px)",
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.08))",
+          /* TEXTBOX STYLE */
+          "& .MuiOutlinedInput-root": {
+            borderRadius: "12px",
+            background: "#fff", // WHITE BACKGROUND
+          },
 
-            boxShadow: "0 10px 40px rgba(0,0,0,0.4)",
-            color: "#fff",
+          "& .MuiInputLabel-root": {
+            color: "#555",
+            fontWeight: 500,
+          },
+
+          "& .MuiOutlinedInput-input": {
+            color: "#000",
+          },
+
+          "& .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#ccc",
+          },
+
+          "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
+            {
+              borderColor: "#7F5AF0",
+            },
+
+          "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+            {
+              borderColor: "#00C2FF",
+              borderWidth: "2px",
+            },
+        }}
+        value={form[field]}
+        onChange={(e) =>
+          setForm({ ...form, [field]: e.target.value })
+        }
+      />
+    ))}
+
+    {/* BUTTONS */}
+    <Stack direction="row" spacing={2} mt={3}>
+      <Button
+        fullWidth
+        variant="outlined"
+        sx={{
+          borderRadius: "12px",
+          color: "#fff",
+          borderColor: "#555",
+
+          "&:hover": {
+            borderColor: "#fff",
           },
         }}
+        onClick={() => setOpen(false)}
       >
-        {/* HEADER */}
-        <DialogTitle
-          sx={{
-            fontWeight: "bold",
-            textAlign: "center",
-            background: "linear-gradient(135deg,#667eea,#764ba2)",
-            color: "#fff",
-            borderTopLeftRadius: 16,
-            borderTopRightRadius: 16,
-          }}
-        >
-          ➕ Add New Address
-        </DialogTitle>
+        Cancel
+      </Button>
 
-        <DialogContent sx={{ mt: 2 }}>
-          {/* INPUTS */}
-          {["name", "phone", "address_line", "city", "state", "pincode"].map(
-            (field) => (
-              <TextField
-                key={field}
-                label={field.replace("_", " ").toUpperCase()}
-                fullWidth
-                variant="outlined"
-                sx={{
-                  mt: 2,
-
-                  /* 🎨 INPUT STYLE */
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: 3,
-                    background: "rgba(255,255,255,0.2)",
-                    color: "#fff",
-                  },
-                  "& .MuiInputLabel-root": {
-                    color: "#fff",
-                  },
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "rgba(255,255,255,0.4)",
-                  },
-                }}
-                value={form[field]}
-                onChange={(e) => setForm({ ...form, [field]: e.target.value })}
-              />
-            )
-          )}
-
-          {/* BUTTONS */}
-          <Stack direction="row" spacing={2} mt={3}>
-            <Button
-              fullWidth
-              variant="outlined"
-              sx={{
-                borderRadius: 3,
-                color: "#fff",
-                borderColor: "rgba(255,255,255,0.5)",
-              }}
-              onClick={() => setOpen(false)}
-            >
-              Cancel
-            </Button>
-
-            <Button
-              fullWidth
-              variant="contained"
-              sx={{
-                borderRadius: 3,
-                fontWeight: "bold",
-                background: "linear-gradient(135deg,#ff9800,#ff5722)",
-              }}
-              onClick={handleAddAddress}
-            >
-              Save 🚀
-            </Button>
-          </Stack>
-        </DialogContent>
-      </Dialog>
+      <Button
+        fullWidth
+        variant="contained"
+        sx={{
+          borderRadius: "12px",
+          fontWeight: "bold",
+          background: "linear-gradient(135deg,#7F5AF0,#00C2FF)",
+        }}
+        onClick={handleAddAddress}
+      >
+        Save 🚀
+      </Button>
+    </Stack>
+  </DialogContent>
+</Dialog>
     </Box>
   );
 }

@@ -326,113 +326,195 @@ function CheckoutPage() {
       </Grid>
 
       {/* OTP DIALOG */}
-      <Dialog
-        open={openOtp}
-        onClose={() => setOpenOtp(false)}
-        PaperProps={{
-          sx: {
-            borderRadius: 4,
-            backdropFilter: "blur(20px)",
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05))",
-            color: "#fff",
-            boxShadow: "0 10px 40px rgba(0,0,0,0.5)",
-            p: 1,
-          },
-        }}
-      >
-        <DialogTitle
+      {/* OTP DIALOG */}
+<Dialog
+  open={openOtp}
+  onClose={() => setOpenOtp(false)}
+  maxWidth="xs"
+  fullWidth
+  PaperProps={{
+    sx: {
+      borderRadius: "24px",
+      overflow: "hidden",
+      background: "#111827",
+      color: "#fff",
+      boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
+    },
+  }}
+>
+  {/* TOP HEADER */}
+  <Box
+    sx={{
+      height: 120,
+      background: "linear-gradient(135deg,#7F5AF0,#00C2FF)",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      position: "relative",
+    }}
+  >
+    <Typography variant="h4">🔐</Typography>
+
+    <Typography
+      variant="h6"
+      fontWeight="bold"
+      sx={{ mt: 1 }}
+    >
+      OTP Verification
+    </Typography>
+  </Box>
+
+  <DialogContent sx={{ p: 4 }}>
+    {!otpSent ? (
+      <>
+        <Typography
+          variant="body2"
           sx={{
-            fontWeight: "bold",
+            mb: 2,
             textAlign: "center",
-            fontSize: "20px",
+            color: "rgba(255,255,255,0.7)",
           }}
         >
-          🔐 Verify Your Order
-        </DialogTitle>
+          Enter your email or phone number to receive OTP
+        </Typography>
 
-        <DialogContent>
-          {!otpSent ? (
-            <>
-              <TextField
-                fullWidth
-                label="Email or Phone"
-                variant="outlined"
-                value={identifier}
-                onChange={(e) => setIdentifier(e.target.value)}
-                sx={{
-                  mt: 2,
-                  input: { color: "#fff" },
-                  label: { color: "#ddd" },
-                  "& .MuiOutlinedInput-root": {
-                    "& fieldset": { borderColor: "rgba(255,255,255,0.4)" },
-                    "&:hover fieldset": { borderColor: "#FFD700" },
-                    "&.Mui-focused fieldset": { borderColor: "#FFD700" },
-                  },
-                }}
-              />
+        <TextField
+          fullWidth
+          label="Email or Phone"
+          variant="outlined"
+          size="small"
+          value={identifier}
+          onChange={(e) => setIdentifier(e.target.value)}
+          sx={{
+            mt: 1,
 
-              <Button
-                fullWidth
-                sx={{
-                  mt: 3,
-                  py: 1.5,
-                  borderRadius: 3,
-                  fontWeight: "bold",
-                  background: "linear-gradient(135deg,#667eea,#764ba2)",
-                  boxShadow: "0 5px 20px rgba(0,0,0,0.4)",
-                  "&:hover": {
-                    transform: "scale(1.05)",
-                    background: "linear-gradient(135deg,#5a6fd1,#6a419c)",
-                  },
-                }}
-                onClick={handleSendOtp}
-              >
-                Send OTP 🚀
-              </Button>
-            </>
-          ) : (
-            <>
-              <TextField
-                fullWidth
-                label="Enter OTP"
-                variant="outlined"
-                value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-                sx={{
-                  mt: 2,
-                  input: { color: "#fff" },
-                  label: { color: "#ddd" },
-                  "& .MuiOutlinedInput-root": {
-                    "& fieldset": { borderColor: "rgba(255,255,255,0.4)" },
-                    "&:hover fieldset": { borderColor: "#FFD700" },
-                    "&.Mui-focused fieldset": { borderColor: "#FFD700" },
-                  },
-                }}
-              />
+            "& .MuiOutlinedInput-root": {
+              borderRadius: "14px",
+              background: "#fff",
+            },
 
-              <Button
-                fullWidth
-                sx={{
-                  mt: 3,
-                  py: 1.5,
-                  borderRadius: 3,
-                  fontWeight: "bold",
-                  background: "linear-gradient(135deg,#ff7e5f,#feb47b)",
-                  boxShadow: "0 5px 20px rgba(0,0,0,0.4)",
-                  "&:hover": {
-                    transform: "scale(1.05)",
-                    background: "linear-gradient(135deg,#ff6a4a,#fda763)",
-                  },
-                }}
-                onClick={handleConfirmOrder}
-              >
-                Place Order ✅
-              </Button>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
+            "& .MuiOutlinedInput-input": {
+              color: "#000",
+            },
+
+            "& .MuiInputLabel-root": {
+              color: "#666",
+            },
+
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#ccc",
+            },
+
+            "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+              {
+                borderColor: "#00C2FF",
+                borderWidth: "2px",
+              },
+          }}
+        />
+
+        <Button
+          fullWidth
+          variant="contained"
+          sx={{
+            mt: 3,
+            py: 1.3,
+            borderRadius: "14px",
+            fontWeight: "bold",
+            fontSize: "15px",
+            background:
+              "linear-gradient(135deg,#7F5AF0,#00C2FF)",
+            boxShadow: "0 8px 20px rgba(0,0,0,0.35)",
+
+            "&:hover": {
+              transform: "translateY(-2px)",
+              background:
+                "linear-gradient(135deg,#6842E3,#00AEEF)",
+            },
+          }}
+          onClick={handleSendOtp}
+        >
+          Send OTP 🚀
+        </Button>
+      </>
+    ) : (
+      <>
+        <Typography
+          variant="body2"
+          sx={{
+            mb: 2,
+            textAlign: "center",
+            color: "rgba(255,255,255,0.7)",
+          }}
+        >
+          Enter the OTP sent to your device
+        </Typography>
+
+        <TextField
+          fullWidth
+          label="Enter OTP"
+          variant="outlined"
+          size="small"
+          value={otp}
+          onChange={(e) => setOtp(e.target.value)}
+          sx={{
+            mt: 1,
+
+            "& .MuiOutlinedInput-root": {
+              borderRadius: "14px",
+              background: "#fff",
+            },
+
+            "& .MuiOutlinedInput-input": {
+              color: "#000",
+              letterSpacing: "4px",
+              fontWeight: "bold",
+            },
+
+            "& .MuiInputLabel-root": {
+              color: "#666",
+            },
+
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#ccc",
+            },
+
+            "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+              {
+                borderColor: "#00C2FF",
+                borderWidth: "2px",
+              },
+          }}
+        />
+
+        <Button
+          fullWidth
+          variant="contained"
+          sx={{
+            mt: 3,
+            py: 1.3,
+            borderRadius: "14px",
+            fontWeight: "bold",
+            fontSize: "15px",
+            background:
+              "linear-gradient(135deg,#ff7e5f,#feb47b)",
+            boxShadow: "0 8px 20px rgba(0,0,0,0.35)",
+
+            "&:hover": {
+              transform: "translateY(-2px)",
+              background:
+                "linear-gradient(135deg,#ff6a4a,#fda763)",
+            },
+          }}
+          onClick={handleConfirmOrder}
+        >
+          Place Order ✅
+        </Button>
+      </>
+    )}
+  </DialogContent>
+</Dialog>
     </Box>
   );
 }
